@@ -1,9 +1,10 @@
 package com.example.logapp;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class LogService {
-    private static final Logger logger = Logger.getLogger(LogService.class);
+    private static final Logger logger = LogManager.getLogger(LogService.class);
 
     public void generateLog(String message) {
         logger.info(message);
