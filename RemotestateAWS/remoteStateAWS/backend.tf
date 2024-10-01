@@ -1,7 +1,7 @@
-terraform{
-    backend "stateFilesS3"{
-    bucketName = "terraprac"
-    key = "terraprac/backend"
+terraform {
+  backend "s3" {
+    bucket = "terraprac"
+    key    = "terraprac/backend"
     region = "us-east-2"
-}
+  }
 }
