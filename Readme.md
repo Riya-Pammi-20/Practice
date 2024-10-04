@@ -1,5 +1,5 @@
-A simple Demo GitOps project that involves ArgoCD.
-A GitOps project for beginners involves using Git as the source of truth for your infrastructure and application deployment. The idea is that any changes to infrastructure or applications are made by updating a Git repository, and an automated pipeline will ensure that your Kubernetes cluster matches what’s described in the Git repository. Below is a basic GitOps project workflow using Kubernetes, ArgoCD (a GitOps continuous delivery tool), and a simple application.
+
+A GitOps project that involves using Git as the source of truth for your infrastructure and application deployment. The idea is that any changes to infrastructure or applications are made by updating a Git repository, and an automated pipeline will ensure that your Kubernetes cluster matches what’s described in the Git repository. Below is a basic GitOps project workflow using Kubernetes, ArgoCD (a GitOps continuous delivery tool), and a simple application.
 
 ### Prerequisites:
 - Basic understanding of Git, Kubernetes, and YAML
