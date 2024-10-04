@@ -95,9 +95,85 @@ kubectl get pods -n argocd
 ```
 
 
-#### Troubleshoot #####
+#### **Troubleshoot** #####
 
-Faced issue in accessing the UI , since the argocd-server type is a Cluster-IP(Internal access)
+Faced issue in accessing the UI , since the argocd-server type is a Cluster-IP(Internal access) so I had to edit the service of argocd-server and give type as Loadbalancer which has generated an endpoint with which I was able to access
+
+```bash
+kubectl get svc -n argocd
+```
+
+It seems like the `argocd-server` service is running with a `ClusterIP`, which means it’s only accessible within the Kubernetes cluster, not directly from outside. To access ArgoCD from outside the cluster, you have a few options. Here's a breakdown of what to do:
+
+### Options to Access the ArgoCD UI:
+
+#### 1. **Port Forwarding** (Local Access)
+You can use `kubectl` to port-forward the `argocd-server` service to your local machine.
+
+1. Run the following command:
+   ```bash
+   kubectl port-forward svc/argocd-server -n argocd 8080:443
+   ```
+   This will forward the ArgoCD UI from the cluster to your local machine at `localhost:8080`.
+
+2. Access the UI at:  
+   `https://localhost:8080`
+
+   If `localhost:8080` is already in use, you can try a different port like `9090`:
+   ```bash
+   kubectl port-forward svc/argocd-server -n argocd 9090:443
+   ```
+   And access the UI at:  
+   `https://localhost:9090`
+
+#### 2. **Change Service Type to NodePort or LoadBalancer** (External Access)
+If you want to access ArgoCD without port-forwarding, you can change the service type from `ClusterIP` to either `NodePort` or `LoadBalancer`.
+
+- **Change to NodePort**:
+  1. Edit the ArgoCD service:
+     ```bash
+     kubectl edit svc argocd-server -n argocd
+     ```
+  2. Change the `type: ClusterIP` to `type: NodePort`.
+  3. Save and exit the editor.
+
+  4. Get the NodePort value by running:
+     ```bash
+     kubectl get svc argocd-server -n argocd
+     ```
+     The output will show something like:
+     ```
+     argocd-server   NodePort    100.71.185.215   <none>   80:30007/TCP, 443:30008/TCP
+     ```
+     In this example, `30008` is the NodePort for HTTPS.
+
+  5. Access ArgoCD at:  
+     `https://<Node-IP>:<NodePort>`
+
+- **Change to LoadBalancer** (if your cloud provider supports it):
+  1. Edit the ArgoCD service:
+     ```bash
+     kubectl edit svc argocd-server -n argocd
+     ```
+  2. Change the `type: ClusterIP` to `type: LoadBalancer`.
+  3. Save and exit the editor.
+
+  4. Once the LoadBalancer is ready, get the external IP:
+     ```bash
+     kubectl get svc argocd-server -n argocd
+     ```
+     The output will show an external IP under the `EXTERNAL-IP` column.
+
+  5. Access ArgoCD at:  
+     `https://<External-IP>`
+
+---
+
+#### Recap:
+- **Port Forward** is the quickest way to access the UI locally.
+- **NodePort or LoadBalancer** allows external access without port-forwarding.
+
+If you face any specific issues during this process, let me know!
 
 #### 3. **Access the ArgoCD Web UI**
 
