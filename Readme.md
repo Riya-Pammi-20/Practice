@@ -95,7 +95,7 @@ kubectl get pods -n argocd
 ```
 
 
-#### **Troubleshoot #1 ** #####
+#### **Troubleshoot 1 ** #####
 
                 Faced issue in accessing the UI , since the argocd-server type is a Cluster-IP(Internal access) so I had to edit the service of argocd-server and give type as Loadbalancer which has generated an endpoint with which I was able to access
                 
@@ -214,7 +214,7 @@ Once logged in, you need to create an ArgoCD application that links to your Git 
 3. Click **Create**.
 
 ---
-**Troubleshoot #2**
+**Troubleshoot 2**
         Had issue in syncing the repo with argoCD
 
         Reason : Namespace has to be properly given in the definition files of deployment
