@@ -254,6 +254,9 @@ You can monitor the health and synchronization status of your application from t
 
 Congratulations! You’ve set up a basic GitOps pipeline using ArgoCD to deploy an application to a Kubernetes cluster. By using Git as the source of truth, you now have a streamlined, version-controlled, and automated deployment process.
 
+![image](https://github.com/user-attachments/assets/1e5d1bca-6d6f-4f5b-b68f-91eb5e9c3872)
+
+
 ### Further Enhancements:
 - **Promote to Staging/Production:** Create separate environments like staging and production using different branches or folders in your Git repository.
 - **Add CI/CD Pipelines:** Integrate tools like Jenkins or GitLab CI to automatically build and push images to a container registry before deploying with ArgoCD.
