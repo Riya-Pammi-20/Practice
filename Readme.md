@@ -1,4 +1,4 @@
-** HELM CHARTS**
+### HELM CHARTS
 
 
 Helm charts are a package management format used with Kubernetes to define, install, and manage applications. Helm acts like a package manager for Kubernetes, similar to how apt or yum works for operating systems. Here’s a detailed breakdown of what Helm charts are and how they function:
@@ -51,7 +51,7 @@ Continuous Integration/Continuous Deployment (CI/CD): Helm can be integrated int
 Conclusion
 Helm charts provide a powerful way to manage Kubernetes applications by packaging all necessary configurations and resources into a single unit. They simplify the deployment and management of complex applications, making Kubernetes more accessible to developers and operators.
 
-2. VALUES.YAML EXPLANATION
+### 2. VALUES.YAML EXPLANATION
 
 The YAML snippet you've provided is a Helm chart values file, typically named `values.yaml`. This file contains configuration values that will be used when deploying your application with Helm. Here's a breakdown of each section:
 
