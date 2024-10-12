@@ -112,3 +112,31 @@ This section defines the configuration for the Kubernetes Service that will expo
 ### Summary
 
 This `values.yaml` file defines the configuration for deploying a Flask application using Helm. It specifies the number of replicas, the Docker image to use, how the application should be exposed, and resource management. You would typically modify the `<your-dockerhub-username>` placeholder with your actual Docker Hub username before using this configuration.
+
+
+### PORTS UNDERSTANDING
+
+Your understanding of the port mappings is mostly correct. Let’s clarify the roles of each port mentioned in your LoadBalancer service output:
+
+80: This is the port on which the LoadBalancer service listens for incoming traffic. Clients will access your application through this port (e.g., http://<LoadBalancer-IP>).
+
+30918: This is the NodePort that is automatically assigned by Kubernetes when you create a service of type NodePort. It allows you to access your application from outside the cluster via any of the nodes in the cluster, on that port. The NodePort is mapped to the LoadBalancer port.
+
+5000: This is the containerPort specified in your Flask application, indicating the port on which the Flask app is running inside the container. When you set up the Service, you usually map the targetPort (in your case, 5000) to the port (in this case, 80).
+
+Summary
+80: Port for the LoadBalancer (external access).
+30918: NodePort (used to access the service from any node in the cluster).
+5000: ContainerPort (port on which your application is running inside the container).
+So, your understanding is correct, and you can access your application either via the LoadBalancer's external IP (on port 80) or through any node's IP (on port 30918). If you have not specified the NodePort manually in your service definition, Kubernetes assigns a random port in the specified range (usually 30000-32767) for the NodePort.
+
+## DEPLOYED APP USING HELM
+
+![image](https://github.com/user-attachments/assets/6cb5ede4-f9f4-4496-a984-421d45a71281)
+
+
+
+
+
+
+
