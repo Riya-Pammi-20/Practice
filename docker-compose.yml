@@ -1,11 +1,10 @@
 version: '3'
 
-
 services:
   frontend:
     build: ./FrontEnd
     ports:
-      - 3000:3000
+      - "3000:3000"
     depends_on:
       - backend
     networks:
@@ -14,18 +13,16 @@ services:
   backend:
     build: ./Backend
     ports:
-      - 5000:5000
+      - "5000:5000"
     depends_on:
       - db
     environment:
       - DATABASE_URL=postgres://user:password@db:5432/mydatabase
-
     networks:
       - app-network
 
-
   db:
-    image : postgres:13
+    image: postgres:13
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
@@ -35,9 +32,6 @@ services:
     networks:
       - app-network
 
-  networks:
-    app-network: 
-      driver: bridge
-
-
-
+networks:
+  app-network: 
+    driver: bridge
