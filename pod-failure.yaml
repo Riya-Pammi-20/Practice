@@ -1,18 +1,51 @@
 apiVersion: litmuschaos.io/v1alpha1
-kind: ChaosEngine
+kind: ChaosExperiment
 metadata:
-  name: pod-failure
+  name: pod-delete
   namespace: default
 spec:
-  appinfo:
-    appns: 'default'
-    applabel: 'app=product'
-    appkind: 'deployment'
-  chaosServiceAccount: litmus-admin
-  experiments:
-    - name: pod-delete
-      spec:
-        components:
-          env:
-            - name: FORCE
-              value: 'true'
+  definition:
+    chaosType: "Pod"
+    appinfo:
+      appns: "default"  # Namespace where the apps are deployed
+      applabel: "app"   # Common label used to identify the target pods
+      appkind: "deployment"  # Kind of the apps (Deployment)
+    components:
+      chaosContainer:
+        image: "litmuschaos/chaos-executor:latest"  # The chaos executor image
+        command:
+          - "/bin/bash"
+          - "-c"
+          - |
+            echo "Killing pods for apps: cart-service, payment-service, product-service"
+            # Get the target pods to delete for each service
+            TARGET_PODS_CART=$(kubectl get pods -l app=cart-service -o jsonpath='{.items[*].metadata.name}')
+            TARGET_PODS_PAYMENT=$(kubectl get pods -l app=payment-service -o jsonpath='{.items[*].metadata.name}')
+            TARGET_PODS_PRODUCT=$(kubectl get pods -l app=product-service -o jsonpath='{.items[*].metadata.name}')
+            
+            # Delete one pod for each service
+            for pod in $TARGET_PODS_CART; do
+              echo "Deleting cart-service pod: $pod"
+              kubectl delete pod $pod
+              break
+            done
+            
+            for pod in $TARGET_PODS_PAYMENT; do
+              echo "Deleting payment-service pod: $pod"
+              kubectl delete pod $pod
+              break
+            done
+            
+            for pod in $TARGET_PODS_PRODUCT; do
+              echo "Deleting product-service pod: $pod"
+              kubectl delete pod $pod
+              break
+            done
+            
+            echo "Pods deleted for all services."
+      imagePullPolicy: Always
+  chaosDuration: "60"  # Run the chaos for 60 seconds
+  cleanupDuration: "30"  # Time to clean up after chaos
+  labels:
+    app: chaos-testing
+
