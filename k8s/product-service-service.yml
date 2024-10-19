@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-service
+spec:
+  selector:
+    app: product-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5001
+  type: LoadBalancer
+
+
+
+# The code snippet you provided is a Kubernetes YAML configuration for a **Service** resource. Let’s break down each part of this configuration to explain what it does.
+
+# ```yaml
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: product-service
+# spec:
+#   selector:
+#     app: product-service
+#   ports:
+#     - protocol: TCP
+#       port: 80
+#       targetPort: 5001
+#   type: LoadBalancer
+# ```
+
+# ### Breakdown of the Configuration
+
+# 1. **apiVersion: v1**
+#    - This specifies the version of the Kubernetes API you are using to create the resource. In this case, it is version 1, which is stable for core resources like Services.
+
+# 2. **kind: Service**
+#    - This indicates that the resource being defined is a Service. Services in Kubernetes are used to expose applications running on a set of pods as a network service.
+
+# 3. **metadata:**
+#    - This section contains metadata about the Service:
+#    - **name: product-service**: This is the name of the Service. It is how you will refer to this Service within the Kubernetes cluster.
+
+# 4. **spec:**
+#    - This section defines the desired behavior and configuration of the Service.
+
+# 5. **selector:**
+#    - **app: product-service**: This selector is used to identify the pods that this Service should route traffic to. In this case, it looks for pods with the label `app: product-service`. This means any pods that match this label will receive traffic from this Service.
+
+# 6. **ports:**
+#    - This section defines the network ports that the Service will expose.
+#    - **- protocol: TCP**: This specifies that the Service will use the TCP protocol for communication.
+#    - **port: 80**: This is the port number on which the Service will be exposed to clients (e.g., web browsers or other services). Clients can connect to the Service on this port.
+#    - **targetPort: 5001**: This is the port on the pod that the traffic will be forwarded to. When the Service receives traffic on port 80, it will forward that traffic to port 5001 on the selected pods.
+
+# 7. **type: LoadBalancer**
+#    - This specifies the type of Service being created. In this case, it is a **LoadBalancer** Service.
+#    - When you create a LoadBalancer Service, Kubernetes will provision a load balancer (usually provided by a cloud provider) that distributes incoming traffic across the pods selected by the Service. This type of Service is useful for exposing your application to external clients, as it provides a stable IP address and load balancing capabilities.
+
+# ### Summary
+# This YAML configuration defines a Kubernetes Service named **product-service** that:
+# - Exposes pods labeled with `app: product-service`.
+# - Listens on port **80** for incoming traffic and forwards that traffic to port **5001** on the selected pods.
+# - Uses a **LoadBalancer** type, which means it will provision a load balancer to distribute traffic to the selected pods, making the application accessible from outside the Kubernetes cluster.
