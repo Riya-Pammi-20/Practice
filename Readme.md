@@ -390,8 +390,10 @@ You've created an e-commerce application with microservices architecture using F
    
    - **Step 4.2:** Create a chaos experiment for pod failure using the following YAML:
    
-       ```bash
-  apiVersion: litmuschaos.io/v1alpha1
+         ### Chaos Experiment YAML for All Services
+
+```yaml
+apiVersion: litmuschaos.io/v1alpha1
 kind: ChaosExperiment
 metadata:
   name: pod-delete
@@ -441,8 +443,8 @@ spec:
   cleanupDuration: "30"  # Time to clean up after chaos
   labels:
     app: chaos-testing
-     ```
- 
+```
+
   
    - **Step 4.3:** Apply the chaos experiment to the cluster:
    
