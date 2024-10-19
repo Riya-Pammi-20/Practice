@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: cart-service
-        image: 
+        image: riya6470/cart-service:latest
         ports:
         - containerPort: 5002

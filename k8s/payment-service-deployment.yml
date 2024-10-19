@@ -9,14 +9,12 @@ spec:
       app: payment-service
   template:
     metadata:
-      name: payment-service
-    selector:
       labels:
         app: payment-service
-      spec:
-        containers:
-        - name: payment-service
-          image:
-          ports:
-          - containerPort: 5003
-  
+    spec:
+      containers:
+      - name: payment-service
+        image: riya6470/payment-service:latest
+        ports:
+        - containerPort: 5003
+

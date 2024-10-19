@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: product-service
-        image:
+        image: riya6470/product-service:latest
         ports:
         - containerPort: 5001
         
